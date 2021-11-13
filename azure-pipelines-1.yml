@@ -6,30 +6,44 @@
 trigger:
 - dev
 
-pool:
-  vmImage: ubuntu-latest
 
+jobs:  
+- deployment: VMDeploy
+  displayName: web
+  environment:
+    name:  VirtualVM
+    resourceType: VirtualMachine
+    tags: FE
+  pool:
+    vmImage: ubuntu-latest
+  strategy:
+   runOnce:
+      preDeploy:
+        steps:
+        - checkout: self
+        - task: NodeTool@0
+          displayName: 'Install Node 14.x'
+          inputs:
+            versionSpec: 14.x
+        - script: |
+            npm install
+            npm build --if-present
+          displayName: 'npm install and build'
+        - task: ArchiveFiles@2
+          displayName: 'Archive files'
+          inputs:
+            rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
+            includeRootFolder: false
+            replaceExistingArchive: true 
+            archiveType: 'zip'
+            archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+            verbose: true
+            
+        - task: PublishBuildArtifacts@1
+          displayName: 'Publish Artifact: drop'
+          inputs:
+            PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+      deploy:
+        steps:
+        - script: echo It works!
 
-steps:
-- task: NodeTool@0
-  displayName: 'Install Node 14.x'
-  inputs:
-    versionSpec: 14.x
-- script: |
-    npm install
-    npm build --if-present
-  displayName: 'npm install and build'
-- task: ArchiveFiles@2
-  displayName: 'Archive files'
-  inputs:
-    rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
-    includeRootFolder: false
-    replaceExistingArchive: true 
-    archiveType: 'zip'
-    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
-    verbose: true
-    
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish Artifact: drop'
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
