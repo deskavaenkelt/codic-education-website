@@ -32,6 +32,9 @@ jobs:
           inputs:
             rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
             includeRootFolder: false
+            replaceExistingArchive: true 
+            verbose: true
+            archiveType: 'zip'
         - task: PublishBuildArtifacts@1
           displayName: 'Publish Artifact: drop'
           inputs:
