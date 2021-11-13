@@ -18,7 +18,7 @@ jobs:
     vmImage: ubuntu-latest
   strategy:
    runOnce:
-      preDeploy:
+      deploy:
         steps:
         - checkout: self
         - task: NodeTool@0
