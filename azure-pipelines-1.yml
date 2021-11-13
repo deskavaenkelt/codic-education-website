@@ -4,7 +4,7 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
 
 trigger:
-- release
+- dev
 
 
 jobs:  
@@ -18,7 +18,7 @@ jobs:
     vmImage: ubuntu-latest
   strategy:
    runOnce:
-      preDeploy:
+      deploy:
         steps:
         - task: NodeTool@0
           displayName: 'Install Node 14.x'
@@ -42,7 +42,3 @@ jobs:
           displayName: 'Publish Artifact: drop'
           inputs:
             PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
-      deploy:
-        steps:
-        - script: echo It works!
-
