@@ -27,8 +27,10 @@ jobs:
             versionSpec: 14.x
         - script: |
             npm install
-            npm build --if-present
-          displayName: 'npm install and build'
+          displayName: 'npm install'
+        - script: |
+            npm build 
+          displayName: 'npm build'
         - script: |
             sudo rm -rf /var/www/html/*
             cp ./build/* /var/www/html/
