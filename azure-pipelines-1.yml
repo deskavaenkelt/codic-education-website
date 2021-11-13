@@ -30,3 +30,11 @@ steps:
   displayName: 'Publish Artifact: drop'
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+
+jobs:  
+- deployment: VMDeploy
+  displayName: web
+  environment:
+    name:  VirtualVM
+    resourceType: VirtualMachine
+    tags: FE
