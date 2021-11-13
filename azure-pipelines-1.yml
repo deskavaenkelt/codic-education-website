@@ -47,6 +47,6 @@ jobs:
         steps:
         - task: PublishBuildArtifacts@1
           inputs:
-            pathToPublish: '/home/CodicMongo/azagent/_work/1/drop'
+            pathToPublish: '/home/CodicMongo/azagent/_work/1/drop/$(BuildId).zip'
             artifactName: drop
 
