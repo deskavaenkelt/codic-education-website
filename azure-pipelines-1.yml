@@ -45,5 +45,8 @@ jobs:
             PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
       deploy:
         steps:
-        - script: echo It works!
+        - task: PublishBuildArtifacts@1
+          inputs:
+            pathToPublish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+            artifactName: drop
 
