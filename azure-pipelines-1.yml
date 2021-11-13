@@ -31,7 +31,8 @@ jobs:
           displayName: 'npm install and build'
         - script: |
             sudo rm -rf /var/www/html/*
-            copy ./build/* /var/www/html/
+            cp ./build/* /var/www/html/
+          displayName: 'npm build to nginx deploy'
         #- task: ArchiveFiles@2
         #  displayName: 'Archive files'
         #  inputs:
