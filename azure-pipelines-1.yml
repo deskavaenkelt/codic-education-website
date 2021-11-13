@@ -32,13 +32,14 @@ jobs:
           inputs:
             rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
             includeRootFolder: false
+            archiveFile: "$(System.DefaultWorkingDirectory)/$(Build.BuildId).zip"
             replaceExistingArchive: true 
             verbose: true
-            archiveType: '7z'
+            archiveType: 'zip'
         - task: PublishBuildArtifacts@1
           displayName: 'Publish Artifact: drop'
           inputs:
-            PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).7z'
+            PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
       deploy:
         steps:
         - script: echo It works!
