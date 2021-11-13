@@ -34,11 +34,11 @@ jobs:
             includeRootFolder: false
             replaceExistingArchive: true 
             verbose: true
-            archiveType: 'zip'
+            archiveType: '7z'
         - task: PublishBuildArtifacts@1
           displayName: 'Publish Artifact: drop'
           inputs:
-            PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+            PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).7z'
       deploy:
         steps:
         - script: echo It works!
