@@ -1,0 +1,58 @@
+# Node.js with React
+# Build a Node.js project that uses React.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+
+trigger:
+- dev
+
+
+jobs:  
+- deployment: VMDeploy
+  displayName: web
+  environment:
+    name:  VirtualVM
+    resourceType: VirtualMachine
+    tags: FE
+  pool:
+    vmImage: ubuntu-latest
+  strategy:
+   runOnce:
+      deploy:
+        steps:
+        - checkout: self
+        - task: NodeTool@0
+          displayName: 'Install Node 14.x'
+          inputs:
+            versionSpec: 14.x
+        - script: |
+            npm install
+          displayName: 'npm install'
+        - script: |
+            npm run build 
+          displayName: 'npm build'
+        - script: |
+            sudo rm -rf /var/www/html/*
+            cp ./build/* /var/www/html/
+          displayName: 'npm build to nginx deploy'
+        #- task: ArchiveFiles@2
+        #  displayName: 'Archive files'
+        #  inputs:
+        #    rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
+         #   includeRootFolder: false
+         #   replaceExistingArchive: true 
+         #   archiveType: 'zip'
+         #   archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+          #  verbose: true
+            
+      #  - task: PublishBuildArtifacts@1
+      #    displayName: 'Publish Artifact: drop'
+      #    inputs:
+      #      PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+      #deploy:
+        #steps:
+        #- task: PublishBuildArtifacts@1
+          #inputs:
+            #PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+            #artifactName: drop
+
