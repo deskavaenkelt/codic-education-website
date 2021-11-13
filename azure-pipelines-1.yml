@@ -29,7 +29,7 @@ jobs:
             npm install
           displayName: 'npm install'
         - script: |
-            npm build 
+            npm run build 
           displayName: 'npm build'
         - script: |
             sudo rm -rf /var/www/html/*
