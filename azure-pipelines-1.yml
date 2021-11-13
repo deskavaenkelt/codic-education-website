@@ -47,6 +47,6 @@ jobs:
         steps:
         - task: PublishBuildArtifacts@1
           inputs:
-            pathToPublish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+            pathToPublish: '$(Build.ArtifactStagingDirectory)'
             artifactName: drop
 
