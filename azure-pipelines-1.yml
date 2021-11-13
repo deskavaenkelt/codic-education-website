@@ -39,15 +39,14 @@ jobs:
             archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
             verbose: true
             
-        #- task: PublishBuildArtifacts@1
-         # displayName: 'Publish Artifact: drop'
-          #inputs:
-           # PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
-      deploy:
-        steps:
         - task: PublishBuildArtifacts@1
+          displayName: 'Publish Artifact: drop'
           inputs:
             PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
-            #pathToPublish: '/home/CodicMongo/azagent/_work/1/drop/$(BuildId).zip'
-            artifactName: drop
+      #deploy:
+        #steps:
+        #- task: PublishBuildArtifacts@1
+          #inputs:
+            #PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+            #artifactName: drop
 
