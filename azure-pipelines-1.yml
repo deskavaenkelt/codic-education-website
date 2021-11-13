@@ -35,14 +35,14 @@ jobs:
             rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
             includeRootFolder: false
             replaceExistingArchive: true 
-            archiveType: '7z'
-            archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).7z'
+            archiveType: 'zip'
+            archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
             verbose: true
             
         - task: PublishBuildArtifacts@1
           displayName: 'Publish Artifact: drop'
           inputs:
-            PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).7z'
+            PathtoPublish: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
       deploy:
         steps:
         - script: echo It works!
